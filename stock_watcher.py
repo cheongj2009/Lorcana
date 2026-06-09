@@ -41,6 +41,10 @@ PRODUCTS = [
         "name": "Disney Lorcana TCG: Wilds Unknown Booster Pack Display",
         "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-wilds-unknownbooster-pack-display-11098887",
     },
+    {
+        "name": "Disney Lorcana TCG: Winterspell Booster Pack Display - 24 Count",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-winterspell-booster-pack-display-24-count-11098881",
+    },
 ]
 
 SCRIPT_DIR = Path(__file__).resolve().parent
