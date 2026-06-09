@@ -1,9 +1,6 @@
 name: Stock Watcher
 
 on:
-  schedule:
-    # Every 5 minutes (GitHub's minimum cron interval).
-    - cron: "*/5 * * * *"
   workflow_dispatch:
     inputs:
       test_notifications:
@@ -11,6 +8,10 @@ on:
         required: false
         default: false
         type: boolean
+  schedule:
+    # Every 5 minutes (GitHub minimum). Offset minutes avoid :00/:05 load spikes
+    # where scheduled jobs are more likely to be dropped.
+    - cron: "2,7,12,17,22,27,32,37,42,47,52,57 * * * *"
 
 concurrency:
   group: stock-watcher
