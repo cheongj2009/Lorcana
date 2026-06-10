@@ -8,6 +8,8 @@ on:
         required: false
         default: false
         type: boolean
+  repository_dispatch:
+    types: [stock-watcher-poll]
   schedule:
     # Every 5 minutes (GitHub minimum). Offset minutes avoid :00/:05 load spikes
     # where scheduled jobs are more likely to be dropped.

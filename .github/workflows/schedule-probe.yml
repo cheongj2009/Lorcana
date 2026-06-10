@@ -1,0 +1,14 @@
+name: Schedule Probe
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Offset minutes; used to verify GitHub's scheduler is active for this repo.
+    - cron: "4,9,14,19,24,29,34,39,44,49,54,59 * * * *"
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - run: echo "schedule probe ok at $(date -u +%Y-%m-%dT%H:%M:%SZ)"
