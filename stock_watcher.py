@@ -2,8 +2,8 @@
 """Autonomous stock watcher for Ravensburger / Disney Lorcana product pages.
 
 Polls a list of product URLs, determines whether each is in stock, persists the
-last-known state, and fires a notification (email + macOS desktop) only when a
-product transitions from out-of-stock to in-stock.
+last-known state in git-backed snapshots, and fires a notification (ntfy + optional
+email/desktop) whenever a product's stock status changes in either direction.
 
 Designed to be run on a schedule (GitHub Actions every 5 minutes, or locally
 via launchd). It has no third-party dependencies; it uses only the Python
@@ -34,16 +34,44 @@ from pathlib import Path
 # Edit this list to add/remove products. The `name` is only used in messages.
 PRODUCTS = [
     {
-        "name": "Disney Lorcana TCG: Fabled Booster Display Box",
-        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-fabled-booster-display-box-11098639",
-    },
-    {
         "name": "Disney Lorcana TCG: Wilds Unknown Booster Pack Display",
         "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-wilds-unknownbooster-pack-display-11098887",
     },
     {
         "name": "Disney Lorcana TCG: Winterspell Booster Pack Display - 24 Count",
         "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-winterspell-booster-pack-display-24-count-11098881",
+    },
+    {
+        "name": "Disney Lorcana TCG: Whispers in the Well Booster Display",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-whispers-in-the-well-booster-display--11098812",
+    },
+    {
+        "name": "Disney Lorcana TCG: Fabled Booster Display Box",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-fabled-booster-display-box-11098639",
+    },
+    {
+        "name": "Disney Lorcana TCG: Reign of Jafar Booster Display Box - 24 Count",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-reign-of-jafar-booster-display-box-24-count-11098558",
+    },
+    {
+        "name": "Disney Lorcana TCG: Archazia's Island Booster Pack Display",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-archazias-island-booster-pack-display-11098557",
+    },
+    {
+        "name": "Disney Lorcana TCG: Azurite Sea Booster Pack Display",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-azurite-sea-booster-pack-display--11098466",
+    },
+    {
+        "name": "Disney Lorcana TCG: Shimmering Skies Booster Pack Display - 24 Count",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-shimmering-skies-booster-pack-display-24-count-11098455",
+    },
+    {
+        "name": "Disney Lorcana TCG: Ursula's Return Booster Pack Display",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-ursulas-return-booster-pack-display-11098342",
+    },
+    {
+        "name": "Disney Lorcana TCG: Into the Inklands Booster Pack Display",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-into-the-inklands-booster-pack-display-11098312",
     },
 ]
 
@@ -179,6 +207,8 @@ _AVAILABILITY_RE = re.compile(
     r'"availability"\s*:\s*"https?://schema\.org/([A-Za-z]+)"', re.IGNORECASE
 )
 _OUT_OF_STOCK_TEXT_RE = re.compile(r"currently out of stock", re.IGNORECASE)
+_UNAVAILABLE_TEXT_RE = re.compile(r"\bunavailable\b", re.IGNORECASE)
+_IN_STOCK_TEXT_RE = re.compile(r"\bin stock\b", re.IGNORECASE)
 
 
 def parse_stock_status(html: str) -> tuple[bool | None, str]:
@@ -201,9 +231,15 @@ def parse_stock_status(html: str) -> tuple[bool | None, str]:
     # Fallback to visible text if structured data is missing.
     if _OUT_OF_STOCK_TEXT_RE.search(html):
         return False, "text:currently out of stock"
+    if _UNAVAILABLE_TEXT_RE.search(html):
+        return False, "text:unavailable"
 
-    # Could not find a reliable out-of-stock signal. Don't assume in-stock to
-    # avoid false alarms if the page layout changes.
+    # Some pages only expose purchasability in visible copy.
+    if _IN_STOCK_TEXT_RE.search(html):
+        return True, "text:in stock"
+
+    # Could not find a reliable signal. Don't assume in-stock to avoid false
+    # alarms if the page layout changes.
     return None, "unknown"
 
 
@@ -279,7 +315,13 @@ def send_email(subject: str, body: str) -> bool:
         return False
 
 
-def send_ntfy(title: str, message: str, click_url: str | None = None) -> bool:
+def send_ntfy(
+    title: str,
+    message: str,
+    click_url: str | None = None,
+    *,
+    tags: str = "shopping_cart",
+) -> bool:
     """Send a push notification via ntfy (https://ntfy.sh) — no credentials.
 
     Subscribe to the same NTFY_TOPIC in the ntfy mobile/web app to receive it.
@@ -294,7 +336,7 @@ def send_ntfy(title: str, message: str, click_url: str | None = None) -> bool:
     headers = {
         "Title": title.encode("utf-8"),
         "Priority": "high",
-        "Tags": "shopping_cart",
+        "Tags": tags,
     }
     if click_url:
         headers["Click"] = click_url
@@ -321,18 +363,49 @@ def send_ntfy(title: str, message: str, click_url: str | None = None) -> bool:
         return False
 
 
-def notify_in_stock(name: str, url: str, signal: str) -> None:
-    subject = f"IN STOCK: {name}"
+def notify_stock_change(
+    name: str,
+    url: str,
+    signal: str,
+    *,
+    in_stock: bool,
+    prev_in_stock: bool,
+) -> None:
+    if in_stock:
+        subject = f"IN STOCK: {name}"
+        short = f"{name} is now IN STOCK."
+        ntfy_title = f"IN STOCK: {name}"
+        ntfy_message = f"{name} is now in stock. Tap to buy."
+        desktop_title = "Back in stock!"
+        desktop_message = f"{name} — open to buy"
+        tags = "shopping_cart"
+    else:
+        subject = f"OUT OF STOCK: {name}"
+        short = f"{name} is now OUT OF STOCK."
+        ntfy_title = f"OUT OF STOCK: {name}"
+        ntfy_message = f"{name} is no longer in stock."
+        desktop_title = "Sold out"
+        desktop_message = f"{name} — now unavailable"
+        tags = "warning"
+
     body = (
-        f"{name} is now IN STOCK!\n\n"
-        f"Buy it here: {url}\n\n"
+        f"{short}\n\n"
+        f"Previous status: {'in stock' if prev_in_stock else 'out of stock'}\n"
+        f"Current status: {'in stock' if in_stock else 'out of stock'}\n"
+        f"Product page: {url}\n\n"
         f"Detected signal: {signal}\n"
         f"Time: {datetime.now(timezone.utc).astimezone().isoformat()}\n"
     )
-    log.info("ALERT: %s is now in stock (%s)", name, signal)
+    log.info(
+        "ALERT: %s stock changed %s -> %s (%s)",
+        name,
+        "in" if prev_in_stock else "out",
+        "in" if in_stock else "out",
+        signal,
+    )
     if env_bool("ENABLE_DESKTOP_NOTIFICATION", True):
-        send_desktop_notification("Back in stock!", f"{name} — open to buy")
-    send_ntfy(f"IN STOCK: {name}", f"{name} is now in stock. Tap to buy.", url)
+        send_desktop_notification(desktop_title, desktop_message)
+    send_ntfy(ntfy_title, ntfy_message, url if in_stock else None, tags=tags)
     send_email(subject, body)
 
 
@@ -359,9 +432,12 @@ def check_product(product: dict, state: dict) -> None:
     status_str = "IN STOCK" if in_stock else "out of stock"
     log.info("%s: %s (%s)", name, status_str, signal)
 
-    # Transition out-of-stock (or unknown/first-run-as-out) -> in-stock.
-    if in_stock and prev_in_stock is not True:
-        notify_in_stock(name, url, signal)
+    # Notify only on a real delta from a known previous status (skip first run
+    # for newly added products so we don't spam alerts for the current state).
+    if prev_in_stock is not None and prev_in_stock != in_stock:
+        notify_stock_change(
+            name, url, signal, in_stock=in_stock, prev_in_stock=prev_in_stock
+        )
 
     state[key] = {
         "name": name,

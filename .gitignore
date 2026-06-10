@@ -1,5 +1,6 @@
 # Local secrets and runtime artifacts — never commit these
 .env
+lorcana-cron-job-token.txt
 state.json
 *.log
 __pycache__/

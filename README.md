@@ -1,13 +1,13 @@
 # Lorcana Stock Watcher
 
 Self-contained watcher that polls Ravensburger / Disney Lorcana product pages
-every 5 minutes and pushes you a notification the moment a product flips from
-**out of stock** to **in stock**.
+every 5 minutes and pushes you a notification whenever a product's stock status
+**changes** (in stock ↔ out of stock).
 
 - **Zero third-party dependencies** — pure Python standard library.
 - **Reliable detection** — reads the page's `schema.org` structured data
   (`availability: InStock` vs `OutOfStock`), with a visible-text fallback.
-- **No spam** — only notifies on the out → in transition.
+- **No spam** — only notifies when stock status actually changes; new products are baselined silently on first check.
 - **Runs on GitHub Actions** every 5 minutes — no Mac required, works 24/7.
 - **Portable state** — persisted in git with timestamped history snapshots.
 
