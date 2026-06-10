@@ -40,6 +40,11 @@ The workflow polls every 5 minutes on GitHub's schedule. After each run it
 atomically commits `state/current.json`. When stock status changes, an
 additional timestamped snapshot is saved under `state/history/`.
 
+> **If scheduled runs never appear** in the Actions tab (only manual runs show
+> up), GitHub's native cron may not have registered for this repo. Use the
+> external cron fallback in [`docs/external-cron-setup.md`](docs/external-cron-setup.md)
+> to trigger polling every 5 minutes via `repository_dispatch` instead.
+
 ### Viewing state history
 
 ```bash
