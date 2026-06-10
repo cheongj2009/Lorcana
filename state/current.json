@@ -3,18 +3,18 @@
     "name": "Disney Lorcana TCG: Fabled Booster Display Box",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-06-10T02:45:10.053984+00:00"
+    "last_checked": "2026-06-10T02:50:12.663214+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-wilds-unknownbooster-pack-display-11098887": {
     "name": "Disney Lorcana TCG: Wilds Unknown Booster Pack Display",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-06-10T02:45:10.210303+00:00"
+    "last_checked": "2026-06-10T02:50:13.168803+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-winterspell-booster-pack-display-24-count-11098881": {
     "name": "Disney Lorcana TCG: Winterspell Booster Pack Display - 24 Count",
     "in_stock": true,
     "signal": "schema.org/InStock",
-    "last_checked": "2026-06-10T02:45:10.557371+00:00"
+    "last_checked": "2026-06-10T02:50:13.298109+00:00"
   }
 }
