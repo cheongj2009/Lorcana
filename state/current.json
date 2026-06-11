@@ -3,60 +3,60 @@
     "name": "Disney Lorcana TCG: Fabled Booster Display Box",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-06-11T00:50:14.580896+00:00"
+    "last_checked": "2026-06-11T00:55:12.250107+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-wilds-unknownbooster-pack-display-11098887": {
     "name": "Disney Lorcana TCG: Wilds Unknown Booster Pack Display",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-06-11T00:50:13.243536+00:00"
+    "last_checked": "2026-06-11T00:55:11.674316+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-winterspell-booster-pack-display-24-count-11098881": {
     "name": "Disney Lorcana TCG: Winterspell Booster Pack Display - 24 Count",
     "in_stock": true,
     "signal": "schema.org/InStock",
-    "last_checked": "2026-06-11T00:50:13.866844+00:00"
+    "last_checked": "2026-06-11T00:55:11.826852+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-whispers-in-the-well-booster-display--11098812": {
     "name": "Disney Lorcana TCG: Whispers in the Well Booster Display",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-06-11T00:50:14.207535+00:00"
+    "last_checked": "2026-06-11T00:55:11.958535+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-reign-of-jafar-booster-display-box-24-count-11098558": {
     "name": "Disney Lorcana TCG: Reign of Jafar Booster Display Box - 24 Count",
     "in_stock": true,
     "signal": "schema.org/InStock",
-    "last_checked": "2026-06-11T00:50:14.799347+00:00"
+    "last_checked": "2026-06-11T00:55:12.411386+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-archazias-island-booster-pack-display-11098557": {
     "name": "Disney Lorcana TCG: Archazia's Island Booster Pack Display",
     "in_stock": true,
     "signal": "schema.org/InStock",
-    "last_checked": "2026-06-11T00:50:14.936361+00:00"
+    "last_checked": "2026-06-11T00:55:12.556007+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-azurite-sea-booster-pack-display--11098466": {
     "name": "Disney Lorcana TCG: Azurite Sea Booster Pack Display",
     "in_stock": true,
     "signal": "schema.org/InStock",
-    "last_checked": "2026-06-11T00:50:15.049466+00:00"
+    "last_checked": "2026-06-11T00:55:12.979762+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-shimmering-skies-booster-pack-display-24-count-11098455": {
     "name": "Disney Lorcana TCG: Shimmering Skies Booster Pack Display - 24 Count",
     "in_stock": true,
     "signal": "schema.org/InStock",
-    "last_checked": "2026-06-11T00:50:15.264107+00:00"
+    "last_checked": "2026-06-11T00:55:13.063891+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-ursulas-return-booster-pack-display-11098342": {
     "name": "Disney Lorcana TCG: Ursula's Return Booster Pack Display",
     "in_stock": false,
     "signal": "text:unavailable",
-    "last_checked": "2026-06-11T00:50:15.435738+00:00"
+    "last_checked": "2026-06-11T00:55:13.485150+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-into-the-inklands-booster-pack-display-11098312": {
     "name": "Disney Lorcana TCG: Into the Inklands Booster Pack Display",
     "in_stock": false,
     "signal": "text:unavailable",
-    "last_checked": "2026-06-11T00:50:15.601697+00:00"
+    "last_checked": "2026-06-11T00:55:13.820063+00:00"
   }
 }
