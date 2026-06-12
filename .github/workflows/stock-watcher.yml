@@ -30,6 +30,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Sync latest state from main
+        run: git pull origin main
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -78,4 +84,29 @@ jobs:
           )"
 
           git commit -m "chore(state): ${summary} @ $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          git push
+
+          # At 3-minute cadence, queued runs can finish with a stale base commit.
+          # Retry pull/rebase + push; on conflict, re-apply this run's polled state.
+          for attempt in 1 2 3 4 5; do
+            echo "Push attempt ${attempt}..."
+            if git pull --rebase origin main && git push origin HEAD:main; then
+              echo "Push succeeded."
+              exit 0
+            fi
+
+            git rebase --abort 2>/dev/null || true
+            echo "Re-syncing and re-applying polled state..."
+            cp state/current.json /tmp/stock-watcher-current.json
+            cp -R state/history /tmp/stock-watcher-history
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/stock-watcher-current.json state/current.json
+            mkdir -p state/history
+            cp -R /tmp/stock-watcher-history/. state/history/
+            git add state/current.json state/history/
+            git commit -m "chore(state): ${summary} @ $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            sleep "$((attempt * 2))"
+          done
+
+          echo "Push failed after 5 attempts."
+          exit 1
