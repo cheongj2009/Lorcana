@@ -243,6 +243,11 @@ def parse_stock_status(html: str) -> tuple[str | None, str]:
             return "out", signal
         if normalized == "limitedavailability":
             return "low", signal
+        # Ravensburger often lags schema.org updates; trust visible stock text.
+        if _OUT_OF_STOCK_TEXT_RE.search(html):
+            return "out", "text:currently out of stock"
+        if _UNAVAILABLE_TEXT_RE.search(html):
+            return "out", "text:unavailable"
         if _FEW_LEFT_TEXT_RE.search(html):
             return "low", "text:only a few left"
         return "in", signal
