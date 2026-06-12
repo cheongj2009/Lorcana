@@ -3,7 +3,8 @@
 
 Polls a list of product URLs, determines whether each is in stock, persists the
 last-known state in git-backed snapshots, and fires a notification (ntfy + optional
-email/desktop) whenever a product's stock status changes in either direction.
+email/desktop) whenever availability changes: out of stock, in stock, or only a
+few left.
 
 Designed to be run on a schedule (every 3 minutes via cron-job.org → GitHub
 Actions, or locally via launchd). It has no third-party dependencies; it uses
@@ -135,10 +136,24 @@ def _stock_signature(state: dict) -> dict[str, dict[str, object]]:
     signature: dict[str, dict[str, object]] = {}
     for url, entry in state.items():
         signature[url] = {
-            "in_stock": entry.get("in_stock"),
+            "stock_level": entry_stock_level(entry),
             "signal": entry.get("signal"),
         }
     return signature
+
+
+def entry_stock_level(entry: dict) -> str | None:
+    """Return out/in/low for a state entry, migrating legacy in_stock booleans."""
+    level = entry.get("stock_level")
+    if level in {"out", "in", "low"}:
+        return level
+    if "in_stock" in entry:
+        return "in" if entry["in_stock"] else "out"
+    return None
+
+
+def stock_level_label(level: str) -> str:
+    return {"out": "out of stock", "in": "in stock", "low": "only a few left"}[level]
 
 
 def stock_status_changed(before: dict, after: dict) -> bool:
@@ -209,37 +224,39 @@ _AVAILABILITY_RE = re.compile(
 _OUT_OF_STOCK_TEXT_RE = re.compile(r"currently out of stock", re.IGNORECASE)
 _UNAVAILABLE_TEXT_RE = re.compile(r"\bunavailable\b", re.IGNORECASE)
 _IN_STOCK_TEXT_RE = re.compile(r"\bin stock\b", re.IGNORECASE)
+_FEW_LEFT_TEXT_RE = re.compile(r"only a few left", re.IGNORECASE)
 
 
-def parse_stock_status(html: str) -> tuple[bool | None, str]:
-    """Return (in_stock, raw_signal).
+def parse_stock_status(html: str) -> tuple[str | None, str]:
+    """Return (stock_level, raw_signal).
 
-    in_stock is True/False when determinable, or None if the page could not be
-    interpreted (treated as "unknown" and ignored for transition detection).
+    stock_level is out/in/low when determinable, or None if the page could not
+    be interpreted (treated as "unknown" and ignored for transition detection).
     """
     match = _AVAILABILITY_RE.search(html)
     if match:
         availability = match.group(1)
         normalized = availability.lower()
-        # schema.org: InStock, LimitedAvailability, PreOrder, BackOrder,
-        # OnlineOnly, etc. are purchasable; OutOfStock / SoldOut / Discontinued
-        # are not.
+        signal = f"schema.org/{availability}"
         out_states = {"outofstock", "soldout", "discontinued"}
-        in_stock = normalized not in out_states
-        return in_stock, f"schema.org/{availability}"
+        if normalized in out_states:
+            return "out", signal
+        if normalized == "limitedavailability":
+            return "low", signal
+        if _FEW_LEFT_TEXT_RE.search(html):
+            return "low", "text:only a few left"
+        return "in", signal
 
     # Fallback to visible text if structured data is missing.
     if _OUT_OF_STOCK_TEXT_RE.search(html):
-        return False, "text:currently out of stock"
+        return "out", "text:currently out of stock"
     if _UNAVAILABLE_TEXT_RE.search(html):
-        return False, "text:unavailable"
-
-    # Some pages only expose purchasability in visible copy.
+        return "out", "text:unavailable"
+    if _FEW_LEFT_TEXT_RE.search(html):
+        return "low", "text:only a few left"
     if _IN_STOCK_TEXT_RE.search(html):
-        return True, "text:in stock"
+        return "in", "text:in stock"
 
-    # Could not find a reliable signal. Don't assume in-stock to avoid false
-    # alarms if the page layout changes.
     return None, "unknown"
 
 
@@ -368,10 +385,19 @@ def notify_stock_change(
     url: str,
     signal: str,
     *,
-    in_stock: bool,
-    prev_in_stock: bool,
+    stock_level: str,
+    prev_stock_level: str,
 ) -> None:
-    if in_stock:
+    purchasable = stock_level in {"in", "low"}
+    if stock_level == "low":
+        subject = f"LOW STOCK: {name}"
+        short = f"{name} — only a few left!"
+        ntfy_title = f"LOW STOCK: {name}"
+        ntfy_message = f"{name} is down to only a few left. Tap to buy."
+        desktop_title = "Low stock!"
+        desktop_message = f"{name} — only a few left"
+        tags = "warning"
+    elif stock_level == "in":
         subject = f"IN STOCK: {name}"
         short = f"{name} is now IN STOCK."
         ntfy_title = f"IN STOCK: {name}"
@@ -390,8 +416,8 @@ def notify_stock_change(
 
     body = (
         f"{short}\n\n"
-        f"Previous status: {'in stock' if prev_in_stock else 'out of stock'}\n"
-        f"Current status: {'in stock' if in_stock else 'out of stock'}\n"
+        f"Previous status: {stock_level_label(prev_stock_level)}\n"
+        f"Current status: {stock_level_label(stock_level)}\n"
         f"Product page: {url}\n\n"
         f"Detected signal: {signal}\n"
         f"Time: {datetime.now(timezone.utc).astimezone().isoformat()}\n"
@@ -399,13 +425,13 @@ def notify_stock_change(
     log.info(
         "ALERT: %s stock changed %s -> %s (%s)",
         name,
-        "in" if prev_in_stock else "out",
-        "in" if in_stock else "out",
+        prev_stock_level,
+        stock_level,
         signal,
     )
     if env_bool("ENABLE_DESKTOP_NOTIFICATION", True):
         send_desktop_notification(desktop_title, desktop_message)
-    send_ntfy(ntfy_title, ntfy_message, url if in_stock else None, tags=tags)
+    send_ntfy(ntfy_title, ntfy_message, url if purchasable else None, tags=tags)
     send_email(subject, body)
 
 
@@ -421,46 +447,49 @@ def check_product(product: dict, state: dict) -> None:
         log.warning("Fetch failed for %s: %s", name, exc)
         return
 
-    in_stock, signal = parse_stock_status(html)
-    if in_stock is None:
+    stock_level, signal = parse_stock_status(html)
+    if stock_level is None:
         log.warning("Could not determine stock status for %s (signal=%s)", name, signal)
         return
 
     prev = state.get(key, {})
-    prev_in_stock = prev.get("in_stock")
+    prev_stock_level = entry_stock_level(prev)
 
-    status_str = "IN STOCK" if in_stock else "out of stock"
-    if prev_in_stock is None:
+    status_str = stock_level_label(stock_level).upper()
+    if prev_stock_level is None:
         log.info("%s: %s (%s) [no saved state — baselining]", name, status_str, signal)
-    elif prev_in_stock == in_stock:
-        prev_label = "in stock" if prev_in_stock else "out of stock"
+    elif prev_stock_level == stock_level:
         log.info(
             "%s: %s (%s) [unchanged; saved state was %s]",
             name,
             status_str,
             signal,
-            prev_label,
+            stock_level_label(prev_stock_level),
         )
     else:
-        prev_label = "in stock" if prev_in_stock else "out of stock"
         log.info(
             "%s: %s (%s) [changed from saved %s]",
             name,
             status_str,
             signal,
-            prev_label,
+            stock_level_label(prev_stock_level),
         )
 
     # Notify only on a real delta from a known previous status (skip first run
     # for newly added products so we don't spam alerts for the current state).
-    if prev_in_stock is not None and prev_in_stock != in_stock:
+    if prev_stock_level is not None and prev_stock_level != stock_level:
         notify_stock_change(
-            name, url, signal, in_stock=in_stock, prev_in_stock=prev_in_stock
+            name,
+            url,
+            signal,
+            stock_level=stock_level,
+            prev_stock_level=prev_stock_level,
         )
 
     state[key] = {
         "name": name,
-        "in_stock": in_stock,
+        "stock_level": stock_level,
+        "in_stock": stock_level in {"in", "low"},
         "signal": signal,
         "last_checked": datetime.now(timezone.utc).isoformat(),
     }

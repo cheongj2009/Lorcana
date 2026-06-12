@@ -7,7 +7,7 @@ every 3 minutes and pushes you a notification whenever a product's stock status
 - **Zero third-party dependencies** — pure Python standard library.
 - **Reliable detection** — reads the page's `schema.org` structured data
   (`availability: InStock` vs `OutOfStock`), with a visible-text fallback.
-- **No spam** — only notifies when stock status actually changes; new products are baselined silently on first check.
+- **No spam** — only notifies when availability actually changes (in stock, only a few left, or out of stock); new products are baselined silently on first check.
 - **Runs on GitHub Actions** every 3 minutes (via cron-job.org) — no Mac required, works 24/7.
 - **Portable state** — persisted in git with timestamped history snapshots.
 

@@ -77,7 +77,10 @@ jobs:
           for entry in state.values():
               name = entry.get("name", "product")
               short = name.split(":")[-1].strip() if ":" in name else name
-              status = "in" if entry.get("in_stock") else "out"
+              level = entry.get("stock_level") or (
+                  "in" if entry.get("in_stock") else "out"
+              )
+              status = level
               parts.append(f"{short}={status}")
           print(", ".join(parts) if parts else "no products")
           PY
