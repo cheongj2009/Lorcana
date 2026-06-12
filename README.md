@@ -1,14 +1,14 @@
 # Lorcana Stock Watcher
 
 Self-contained watcher that polls Ravensburger / Disney Lorcana product pages
-every 5 minutes and pushes you a notification whenever a product's stock status
+every 3 minutes and pushes you a notification whenever a product's stock status
 **changes** (in stock ↔ out of stock).
 
 - **Zero third-party dependencies** — pure Python standard library.
 - **Reliable detection** — reads the page's `schema.org` structured data
   (`availability: InStock` vs `OutOfStock`), with a visible-text fallback.
 - **No spam** — only notifies when stock status actually changes; new products are baselined silently on first check.
-- **Runs on GitHub Actions** every 5 minutes — no Mac required, works 24/7.
+- **Runs on GitHub Actions** every 3 minutes (via cron-job.org) — no Mac required, works 24/7.
 - **Portable state** — persisted in git with timestamped history snapshots.
 
 ## Files
@@ -36,8 +36,9 @@ every 5 minutes and pushes you a notification whenever a product's stock status
 5. Once verified, disable the local launchd job if you were using it:
    `./uninstall.sh`
 
-The workflow polls every 5 minutes on GitHub's schedule. After each run it
-atomically commits `state/current.json`. When stock status changes, an
+cron-job.org triggers the workflow every 3 minutes. Each run loads
+`state/current.json` from git, compares every product against that saved state,
+then atomically commits the updated file. When stock status changes, an
 additional timestamped snapshot is saved under `state/history/`.
 
 > **If scheduled runs never appear** in the Actions tab (only manual runs show
@@ -99,6 +100,6 @@ neither can be determined, it logs a warning and does nothing (no false alarms).
 ## Notes
 
 - Secrets are read only from environment / GitHub Secrets and are never logged.
-- Be a good citizen: 5-minute polling is gentle. Don't lower it aggressively.
+- Be a good citizen: 3-minute polling is reasonably gentle for a small product list.
 - Scheduled GitHub Actions runs are best-effort and may be delayed slightly
   during high platform load.

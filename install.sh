@@ -1,7 +1,7 @@
 #!/bin/bash
 # Portable installer for the Lorcana stock watcher.
 # Generates a launchd job pointing at THIS folder (wherever it lives) and starts
-# it on a 5-minute schedule. Safe to re-run; it reloads cleanly.
+# it on a 3-minute schedule. Safe to re-run; it reloads cleanly.
 set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -34,7 +34,7 @@ cat > "$PLIST" <<PLIST_EOF
         <string>$DIR/run.sh</string>
     </array>
     <key>StartInterval</key>
-    <integer>300</integer>
+    <integer>180</integer>
     <key>RunAtLoad</key>
     <true/>
     <key>WorkingDirectory</key>
@@ -51,7 +51,7 @@ launchctl load "$PLIST"
 
 echo "Installed and started: $LABEL"
 echo "  Folder:   $DIR"
-echo "  Schedule: every 300s (5 min), runs immediately on load."
+echo "  Schedule: every 180s (3 min), runs immediately on load."
 echo "  Logs:     $DIR/stock_watcher.log"
 echo
 echo "Manage it with:"

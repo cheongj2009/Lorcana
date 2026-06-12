@@ -39,7 +39,7 @@ Expect **`HTTP 204`**. Then check Actions for a new **Stock Watcher** run.
 1. Sign up at [cron-job.org](https://cron-job.org) (free)
 2. **Create cronjob**
 3. URL: `https://api.github.com/repos/cheongj2009/Lorcana/actions/workflows/stock-watcher.yml/dispatches`
-4. Schedule: every 5 minutes
+4. Schedule: every 3 minutes (`*/3 * * * *`)
 5. Request method: **POST**
 6. Headers:
    - `Accept: application/vnd.github+json`
@@ -57,4 +57,4 @@ Each POST triggers the **Stock Watcher** workflow on `main` without needing your
 
 ## Verify
 
-Actions tab → runs should appear every ~5 minutes with event **workflow_dispatch**.
+Actions tab → runs should appear every ~3 minutes with event **workflow_dispatch**.

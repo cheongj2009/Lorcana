@@ -5,9 +5,9 @@ Polls a list of product URLs, determines whether each is in stock, persists the
 last-known state in git-backed snapshots, and fires a notification (ntfy + optional
 email/desktop) whenever a product's stock status changes in either direction.
 
-Designed to be run on a schedule (GitHub Actions every 5 minutes, or locally
-via launchd). It has no third-party dependencies; it uses only the Python
-standard library.
+Designed to be run on a schedule (every 3 minutes via cron-job.org → GitHub
+Actions, or locally via launchd). It has no third-party dependencies; it uses
+only the Python standard library.
 
 Configuration (SMTP credentials, recipients) is read from environment variables,
 optionally loaded from a local `.env` file living next to this script. Secrets
@@ -430,7 +430,26 @@ def check_product(product: dict, state: dict) -> None:
     prev_in_stock = prev.get("in_stock")
 
     status_str = "IN STOCK" if in_stock else "out of stock"
-    log.info("%s: %s (%s)", name, status_str, signal)
+    if prev_in_stock is None:
+        log.info("%s: %s (%s) [no saved state — baselining]", name, status_str, signal)
+    elif prev_in_stock == in_stock:
+        prev_label = "in stock" if prev_in_stock else "out of stock"
+        log.info(
+            "%s: %s (%s) [unchanged; saved state was %s]",
+            name,
+            status_str,
+            signal,
+            prev_label,
+        )
+    else:
+        prev_label = "in stock" if prev_in_stock else "out of stock"
+        log.info(
+            "%s: %s (%s) [changed from saved %s]",
+            name,
+            status_str,
+            signal,
+            prev_label,
+        )
 
     # Notify only on a real delta from a known previous status (skip first run
     # for newly added products so we don't spam alerts for the current state).
@@ -478,6 +497,14 @@ def main() -> int:
         return 1 if any_remote_failed else 0
 
     state = load_state()
+    if STATE_FILE.exists():
+        log.info(
+            "Loaded saved state for %d product(s) from %s",
+            len(state),
+            STATE_FILE.name,
+        )
+    else:
+        log.info("No saved state file yet — products will be baselined this run")
     previous_state = json.loads(json.dumps(state))
     for product in PRODUCTS:
         check_product(product, state)

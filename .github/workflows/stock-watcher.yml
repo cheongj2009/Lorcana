@@ -11,8 +11,8 @@ on:
   repository_dispatch:
     types: [stock-watcher-poll]
   schedule:
-    # Every 5 minutes (GitHub minimum). Offset minutes avoid :00/:05 load spikes
-    # where scheduled jobs are more likely to be dropped.
+    # Backup only (GitHub minimum is 5 min). Primary trigger is cron-job.org
+    # every 3 minutes via workflow_dispatch.
     - cron: "2,7,12,17,22,27,32,37,42,47,52,57 * * * *"
 
 concurrency:
