@@ -74,6 +74,74 @@ PRODUCTS = [
         "name": "Disney Lorcana TCG: Into the Inklands Booster Pack Display",
         "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-into-the-inklands-booster-pack-display-11098312",
     },
+    {
+        "name": "Disney Lorcana TCG: Wilds Unknown Sleeved Booster Pack",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-wilds-unknownsleeved-booster-pack-11098862",
+    },
+    {
+        "name": "Disney Lorcana TCG: Wilds Unknown Illumineer's Trove",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/trove-packs/disney-lorcana-tcg-wilds-unknownillumineers-trove--11098864",
+    },
+    {
+        "name": "Disney Lorcana TCG: Winterspell Illumineer's Trove",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/trove-packs/winterspell-illumineers-trove-english-11098840",
+    },
+    {
+        "name": "Disney Lorcana TCG: Winterspell Sleeved Booster Pack",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/winterspell-sleeved-booster-pack-english-11098838",
+    },
+    {
+        "name": "Disney Lorcana TCG: Winterspell Collection Starter Set",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/starter-decks/winterspell-collection-starter-set-11090026",
+    },
+    {
+        "name": "Disney Lorcana TCG: Whispers in the Well Illumineer's Trove",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/trove-packs/whispers-in-the-well-illumineers-trove-11098786",
+    },
+    {
+        "name": "Disney Lorcana TCG: Whispers in the Well Sleeved Booster Packs",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/whispers-in-the-well-sleeved-booster-packs-11098784",
+    },
+    {
+        "name": "Disney Lorcana TCG: Fabled Illumineer's Trove",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/trove-packs/fabled-illumineers-trove-11098613",
+    },
+    {
+        "name": "Disney Lorcana TCG: Reign of Jafar Illumineer's Trove",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/trove-packs/reign-of-jafar-illumineers-trove-english-11098510",
+    },
+    {
+        "name": "Disney Lorcana TCG: Archazia's Island Illumineer's Trove",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/trove-packs/archazias-island-illumineers-trove-11098509",
+    },
+    {
+        "name": "Disney Lorcana TCG: Azurite Sea Illumineer's Trove",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/trove-packs/azurite-sea-illumineers-trove-11098432",
+    },
+    {
+        "name": "Disney Lorcana TCG: Shimmering Skies Sleeved Booster Packs",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/shimmering-skies-sleeved-booster-packs-11098394",
+    },
+    {
+        "name": "Disney Lorcana TCG: Shimmering Skies Illumineer's Trove",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/trove-packs/-shimmering-skies-trove-11098396",
+    },
+    {
+        "name": "Disney Lorcana TCG: Ursula's Return Illumineer's Trove",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/trove-packs/ursulas-return-trove-pack-11098352",
+    },
+    {
+        "name": "Disney Lorcana TCG: Ursula's Return Sleeved Booster Packs",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/ursulas-return-sleeved-booster-packs-11098350",
+    },
+    {
+        "name": "Disney Lorcana TCG: Into the Inklands Sleeved Booster Packs",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/into-the-inklands-sleeved-booster-packs-11098290",
+    },
+    {
+        "name": "Disney Lorcana TCG: The First Chapter Booster Pack",
+        "url": "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/the-first-chapter-booster-pack-11098172",
+    },
 ]
 
 SCRIPT_DIR = Path(__file__).resolve().parent
