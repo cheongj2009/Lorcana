@@ -4,188 +4,188 @@
     "stock_level": "out",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-06-24T04:36:12.038697+00:00"
+    "last_checked": "2026-06-24T04:37:33.504056+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-wilds-unknownbooster-pack-display-11098887": {
     "name": "Disney Lorcana TCG: Wilds Unknown Booster Pack Display",
     "stock_level": "out",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-06-24T04:36:09.988202+00:00"
+    "last_checked": "2026-06-24T04:37:32.679153+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-winterspell-booster-pack-display-24-count-11098881": {
     "name": "Disney Lorcana TCG: Winterspell Booster Pack Display - 24 Count",
     "stock_level": "out",
     "in_stock": false,
     "signal": "text:unavailable",
-    "last_checked": "2026-06-24T04:36:11.579199+00:00"
+    "last_checked": "2026-06-24T04:37:33.255803+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-whispers-in-the-well-booster-display--11098812": {
     "name": "Disney Lorcana TCG: Whispers in the Well Booster Display",
     "stock_level": "out",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-06-24T04:36:11.814816+00:00"
+    "last_checked": "2026-06-24T04:37:33.377975+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-reign-of-jafar-booster-display-box-24-count-11098558": {
     "name": "Disney Lorcana TCG: Reign of Jafar Booster Display Box - 24 Count",
     "stock_level": "out",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-06-24T04:36:12.572419+00:00"
+    "last_checked": "2026-06-24T04:37:34.639880+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-archazias-island-booster-pack-display-11098557": {
     "name": "Disney Lorcana TCG: Archazia's Island Booster Pack Display",
     "stock_level": "out",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-06-24T04:36:13.072053+00:00"
+    "last_checked": "2026-06-24T04:37:34.978798+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-azurite-sea-booster-pack-display--11098466": {
     "name": "Disney Lorcana TCG: Azurite Sea Booster Pack Display",
     "stock_level": "in",
     "in_stock": true,
     "signal": "schema.org/InStock",
-    "last_checked": "2026-06-24T04:36:13.538953+00:00"
+    "last_checked": "2026-06-24T04:37:35.175199+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-shimmering-skies-booster-pack-display-24-count-11098455": {
     "name": "Disney Lorcana TCG: Shimmering Skies Booster Pack Display - 24 Count",
     "stock_level": "out",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-06-24T04:36:14.188150+00:00"
+    "last_checked": "2026-06-24T04:37:35.827406+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-ursulas-return-booster-pack-display-11098342": {
     "name": "Disney Lorcana TCG: Ursula's Return Booster Pack Display",
     "stock_level": "out",
     "in_stock": false,
     "signal": "text:unavailable",
-    "last_checked": "2026-06-24T04:36:14.417882+00:00"
+    "last_checked": "2026-06-24T04:37:36.241267+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-into-the-inklands-booster-pack-display-11098312": {
     "name": "Disney Lorcana TCG: Into the Inklands Booster Pack Display",
     "stock_level": "out",
     "in_stock": false,
     "signal": "text:unavailable",
-    "last_checked": "2026-06-24T04:36:16.736775+00:00"
+    "last_checked": "2026-06-24T04:37:36.608766+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/disney-lorcana-tcg-wilds-unknownsleeved-booster-pack-11098862": {
     "name": "Disney Lorcana TCG: Wilds Unknown Sleeved Booster Pack",
     "stock_level": "out",
     "in_stock": false,
     "signal": "text:unavailable",
-    "last_checked": "2026-06-24T04:36:17.248392+00:00"
+    "last_checked": "2026-06-24T04:37:36.769373+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/trove-packs/disney-lorcana-tcg-wilds-unknownillumineers-trove--11098864": {
     "name": "Disney Lorcana TCG: Wilds Unknown Illumineer's Trove",
     "stock_level": "out",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-06-24T04:36:17.428216+00:00"
+    "last_checked": "2026-06-24T04:37:36.914801+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/trove-packs/winterspell-illumineers-trove-english-11098840": {
     "name": "Disney Lorcana TCG: Winterspell Illumineer's Trove",
     "stock_level": "out",
     "in_stock": false,
     "signal": "text:unavailable",
-    "last_checked": "2026-06-24T04:36:17.917062+00:00"
+    "last_checked": "2026-06-24T04:37:37.312827+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/winterspell-sleeved-booster-pack-english-11098838": {
     "name": "Disney Lorcana TCG: Winterspell Sleeved Booster Pack",
     "stock_level": "out",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-06-24T04:36:18.074470+00:00"
+    "last_checked": "2026-06-24T04:37:37.714181+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/starter-decks/winterspell-collection-starter-set-11090026": {
     "name": "Disney Lorcana TCG: Winterspell Collection Starter Set",
     "stock_level": "out",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-06-24T04:36:18.525701+00:00"
+    "last_checked": "2026-06-24T04:37:38.205768+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/trove-packs/whispers-in-the-well-illumineers-trove-11098786": {
     "name": "Disney Lorcana TCG: Whispers in the Well Illumineer's Trove",
     "stock_level": "out",
     "in_stock": false,
     "signal": "text:unavailable",
-    "last_checked": "2026-06-24T04:36:18.855006+00:00"
+    "last_checked": "2026-06-24T04:37:38.560314+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/whispers-in-the-well-sleeved-booster-packs-11098784": {
     "name": "Disney Lorcana TCG: Whispers in the Well Sleeved Booster Packs",
     "stock_level": "out",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-06-24T04:36:19.237140+00:00"
+    "last_checked": "2026-06-24T04:37:38.702724+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/trove-packs/fabled-illumineers-trove-11098613": {
     "name": "Disney Lorcana TCG: Fabled Illumineer's Trove",
     "stock_level": "out",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-06-24T04:36:19.475205+00:00"
+    "last_checked": "2026-06-24T04:37:38.960547+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/trove-packs/reign-of-jafar-illumineers-trove-english-11098510": {
     "name": "Disney Lorcana TCG: Reign of Jafar Illumineer's Trove",
     "stock_level": "out",
     "in_stock": false,
     "signal": "text:unavailable",
-    "last_checked": "2026-06-24T04:36:19.620618+00:00"
+    "last_checked": "2026-06-24T04:37:39.603113+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/trove-packs/archazias-island-illumineers-trove-11098509": {
     "name": "Disney Lorcana TCG: Archazia's Island Illumineer's Trove",
     "stock_level": "out",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-06-24T04:36:19.780437+00:00"
+    "last_checked": "2026-06-24T04:37:39.870804+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/trove-packs/azurite-sea-illumineers-trove-11098432": {
     "name": "Disney Lorcana TCG: Azurite Sea Illumineer's Trove",
     "stock_level": "out",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-06-24T04:36:19.951103+00:00"
+    "last_checked": "2026-06-24T04:37:39.969262+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/shimmering-skies-sleeved-booster-packs-11098394": {
     "name": "Disney Lorcana TCG: Shimmering Skies Sleeved Booster Packs",
     "stock_level": "out",
     "in_stock": false,
     "signal": "text:unavailable",
-    "last_checked": "2026-06-24T04:36:20.201506+00:00"
+    "last_checked": "2026-06-24T04:37:40.290295+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/trove-packs/-shimmering-skies-trove-11098396": {
     "name": "Disney Lorcana TCG: Shimmering Skies Illumineer's Trove",
     "stock_level": "out",
     "in_stock": false,
     "signal": "text:unavailable",
-    "last_checked": "2026-06-24T04:36:20.438566+00:00"
+    "last_checked": "2026-06-24T04:37:40.614100+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/trove-packs/ursulas-return-trove-pack-11098352": {
     "name": "Disney Lorcana TCG: Ursula's Return Illumineer's Trove",
     "stock_level": "out",
     "in_stock": false,
     "signal": "text:unavailable",
-    "last_checked": "2026-06-24T04:36:20.683151+00:00"
+    "last_checked": "2026-06-24T04:37:40.839237+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/ursulas-return-sleeved-booster-packs-11098350": {
     "name": "Disney Lorcana TCG: Ursula's Return Sleeved Booster Packs",
     "stock_level": "out",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-06-24T04:36:20.938219+00:00"
+    "last_checked": "2026-06-24T04:37:40.967195+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/into-the-inklands-sleeved-booster-packs-11098290": {
     "name": "Disney Lorcana TCG: Into the Inklands Sleeved Booster Packs",
     "stock_level": "out",
     "in_stock": false,
     "signal": "text:unavailable",
-    "last_checked": "2026-06-24T04:36:23.022764+00:00"
+    "last_checked": "2026-06-24T04:37:41.736357+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/boosters/the-first-chapter-booster-pack-11098172": {
     "name": "Disney Lorcana TCG: The First Chapter Booster Pack",
     "stock_level": "out",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-06-24T04:36:23.192929+00:00"
+    "last_checked": "2026-06-24T04:37:41.852455+00:00"
   }
 }
