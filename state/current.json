@@ -102,7 +102,7 @@
     "stock_level": "out",
     "in_stock": false,
     "signal": "text:unavailable",
-    "last_checked": "2026-07-12T08:18:12.716869+00:00"
+    "last_checked": "2026-07-18T03:44:10.772072+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/trove-packs/whispers-in-the-well-illumineers-trove-11098786": {
     "name": "Disney Lorcana TCG: Whispers in the Well Illumineer's Trove",
@@ -123,7 +123,7 @@
     "stock_level": "out",
     "in_stock": false,
     "signal": "schema.org/OutOfStock",
-    "last_checked": "2026-07-17T14:46:14.396156+00:00"
+    "last_checked": "2026-07-18T03:44:10.899885+00:00"
   },
   "https://www.ravensburger.us/en-US/products/disney-lorcana/trove-packs/reign-of-jafar-illumineers-trove-english-11098510": {
     "name": "Disney Lorcana TCG: Reign of Jafar Illumineer's Trove",
